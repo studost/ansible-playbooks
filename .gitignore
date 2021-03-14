@@ -1,0 +1,12 @@
+/.idea
+/build
+atlassian-*.xml
+tmp
+*.bak
+*.swp
+*.tar.gz
+MOSET-*
+lsync*
+*.iml
+.ssh
+

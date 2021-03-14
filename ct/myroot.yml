@@ -1,0 +1,26 @@
+---
+ - name: add ssh, deploy root key
+   hosts: all
+   become: yes
+
+   tasks:
+   - name: disable password authentication
+     lineinfile: 
+       path: /etc/ssh/sshd_config
+       regexp: '^PasswordAuthentication'
+       line: 'PasswordAuthentication no'
+       state: present
+       backup: yes
+     notify:
+       - restart ssh
+
+   - name: deploy key
+     authorized_key:
+       user: root
+       key: "{{ lookup('file', '~/ansible/.ssh/root.pub') }}"
+
+   handlers:
+     - name: restart ssh
+       service:
+         name: sshd
+         state: restarted
