@@ -1,0 +1,14 @@
+---
+ - name: install all tools on Ubuntu with apt
+   hosts: all
+   become: yes
+
+   tasks:
+   - name: install latest tool version
+     apt: 
+       name: "{{ item }}"
+       state: latest
+     loop:
+       - net-tools
+       - vim
+

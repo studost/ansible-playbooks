@@ -1,0 +1,18 @@
+---
+ - name: set name, adjust /etc/hosts
+   hosts: all
+   become: yes
+
+# order matters!
+   tasks:
+   - name: adjust /etc/hosts
+     replace:
+       path: /etc/hosts
+       regexp: '(\s*){{ ansible_hostname }}(\s*)'
+       replace: '\1{{ hostname }}\2'
+
+   - name: set hostname
+     hostname:
+       name: '{{ hostname }}'
+
+
